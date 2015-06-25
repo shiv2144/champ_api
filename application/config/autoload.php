@@ -119,9 +119,6 @@ $autoload['drivers'] = array();
 |
 */
 
-$autoload['config'] = array();
-
-
 /*
 | -------------------------------------------------------------------
 |  Auto-load Language files
