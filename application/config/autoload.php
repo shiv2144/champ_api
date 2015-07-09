@@ -45,8 +45,7 @@ $autoload['packages'] = array(
 );
  
 $autoload['libraries'] = array(
-    'database','session','tokens','Authentication'
-);
+    'database','session','tokens','Authentication');
  
 $autoload['helper'] = array(
     'serialization','security','html','url','form','cookie'
@@ -132,7 +131,7 @@ $autoload['drivers'] = array();
 |
 */
 
-$autoload['language'] = array();
+$autoload['language'] = array('error');
 
 
 /*

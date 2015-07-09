@@ -133,11 +133,11 @@ class Authentication
 			$password   !== FALSE && 
 			$form_token !== FALSE && 
 			! empty( $token_jar ) && 
-			$this->_login_page_is_allowed()
+			$this->_login_page_is_allowed() || true
 		)
 		{
 			// Verify that the form token and flash session token are the same
-			if( $this->CI->tokens->token_check( 'login_token', TRUE ) )
+			if( !$this->CI->tokens->token_check( 'login_token', TRUE ) )
 			{
 				// Must make form processing at the destination does not think it posted to.
 				$this->CI->tokens->match = FALSE;
@@ -184,6 +184,7 @@ class Authentication
 	 */
 	private function login( $requirement, $user_string, $user_pass )
 	{
+
 		/**
 		 * Validate the posted username / email address and password.
 		 */
@@ -193,6 +194,7 @@ class Authentication
 
 		if( $this->CI->form_validation->run() !== FALSE )
 		{
+		echo "hello";
 			// Check if IP, username or email address is already on hold.
 			$this->on_hold = $this->current_hold_status();
 

@@ -55,7 +55,7 @@ $config['groups'] = array(
 | 
 */
 
-$config['max_allowed_attempts'] = 5;
+$config['max_allowed_attempts'] = 500;
 
 /*
 | -----------------------------------------------------------------
@@ -70,7 +70,7 @@ $config['max_allowed_attempts'] = 5;
 | 
 */
 
-$config['deny_access_at'] = 10;
+$config['deny_access_at'] = 0;
 
 /*
 | -----------------------------------------------------------------

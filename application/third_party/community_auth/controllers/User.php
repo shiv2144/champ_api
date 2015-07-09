@@ -48,8 +48,16 @@ class User extends MY_Controller {
 		}
 
 		$this->setup_login_form();
+echo 'hgfhgfgh';
+		if( isset( $login_error_mesg ) )
+		{
+		$this->output
+	    ->set_content_type('application/json')
+	    ->set_output(json_encode($login_error_mesg));
+	    die;
+		}
 
-		$this->load->view( 'auth/login_form' );
+		//$this->load->view( 'auth/login_form' );
 	}
 
 	// --------------------------------------------------------------

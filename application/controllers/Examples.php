@@ -1,18 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/**
- * Community Auth - Examples Controller
- *
- * Community Auth is an open source authentication application for CodeIgniter 3
- *
- * @package     Community Auth
- * @author      Robert B Gottier
- * @copyright   Copyright (c) 2011 - 2015, Robert B Gottier. (http://brianswebdesign.com/)
- * @license     BSD - http://www.opensource.org/licenses/BSD-3-Clause
- * @link        http://community-auth.com
- */
-
 class Examples extends MY_Controller{
 	
 	public function __construct()
@@ -51,9 +39,9 @@ class Examples extends MY_Controller{
 	{
 		// Customize this array for your user
 		$user_data = array(
-			'user_name'     => 'skunkbot',
-			'user_pass'     => 'Something1',
-			'user_email'    => 'example@hotmail.com',
+			'user_name'     => $this->input->post('user_name'),
+			'user_pass'     => $this->input->post('user_pass'),
+			'user_email'    => $this->input->post('user_email'),
 			'user_level'    => 1,
 			'user_id'       => $this->_get_unused_id(),
 			'user_salt'     => $this->authentication->random_salt(),
@@ -62,15 +50,37 @@ class Examples extends MY_Controller{
 		);
 
 		$user_data['user_pass'] = $this->authentication->hash_passwd( $user_data['user_pass'], $user_data['user_salt'] );
+		
+		$query = $this->db->where('user_email', $this->input->post('user_email'))
+			->get_where( config_item('user_table'));
 
-		$this->db->set($user_data)
-			->insert( config_item('user_table'));
-
-		if( $this->db->affected_rows() == 1 )
+		if( !($query->num_rows() > 0) )
 		{
-			echo 'User ' . $user_data['user_name'] . ' was created.';
-		}
+			
+			$this->db->set($user_data)
+			->insert(config_item('user_table'));
 
+			if( $this->db->affected_rows() == 1 )
+			{
+				$this->output
+				->set_status_header(200)
+			    ->set_content_type('application/json')
+			    ->set_output( json_encode(array('mesg' =>  str_replace('{0}', $this->input->post('user_emailuser_email'), $this->lang->line('mesg_user_created')), 'code' => '1') ))
+			    ->_display();
+			    die;
+			}
+		
+		}else{
+			
+			$this->output
+			->set_status_header(200)
+		    ->set_content_type('application/json')
+		    ->set_output( json_encode(array('mesg' =>  str_replace('{0}', $this->input->post('user_email'), $this->lang->line('error_user_exist')), 'code' => '1') ))
+		    ->_display();
+		    die;
+
+	}
+	
 	}
 	
 	// -----------------------------------------------------------------------

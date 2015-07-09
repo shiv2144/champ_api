@@ -1,3 +1,8 @@
 # MAKE SURE TO LEAVE THE NEXT TWO LINES HERE.
 # BEGIN DENY LIST --
 # END DENY LIST --
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule .* /champ_api/index.php/$0 [PT,L]

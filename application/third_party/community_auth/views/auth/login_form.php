@@ -62,7 +62,6 @@ if( ! isset( $on_hold_message ) )
 
 	echo form_open( $login_url, array( 'class' => 'std-form' ) ); 
 ?>
-
 	<div>
 
 		<label for="login_string" class="form_label">Username or Email</label>
